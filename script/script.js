@@ -44,7 +44,8 @@ queue()
                 x0: centroid[0],
                 y0: centroid[1],
                 x: centroid[0],
-                y: centroid[1]
+                y: centroid[1],
+                r:scaleR(popByState.get(d.properties.STATE).pop)
             }
         });
         console.log(data);
@@ -90,7 +91,7 @@ queue()
             .size([width, height])
             //?? Readme says that there's not supposed to be a force, but without it the circles don't move.
             //Is there something wrong with the collide function?
-            .charge(-40)
+            .charge(0)
             .gravity(0);
 
         //set up collision properties, to run the onForceTick function
