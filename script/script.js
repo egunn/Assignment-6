@@ -116,7 +116,9 @@ queue()
             n = data.length;
 
         while (++i < n) {
-            q.visit(collide(data[i]));
+            q.visit(collide(data[i])); //calls collide function, which passes back updated values and boolean to indicate whether
+            //updates occurred. q is a quadtree, which has a callback function visit that calls the collide function on each datapoint.
+            //(see https://github.com/mbostock/d3/wiki/Quadtree-Geom)
         }
 
         //update nodes and tick values each time the function is run - attr that change (x, y)
@@ -160,6 +162,9 @@ function parseData(d){
 
 
 function collide(dataPoint){
+    //define a variable with properties based on input data, return a function that stores comparator conditions to check
+    //for collisions. That function returns true if modifications are necessary, and overwrites original data.
+
     //read original data x and y values, store x and y positions twice (presumably so that you can change nx1 and nx2 separately)
     var nr = dataPoint.r + 5,
         nx1 = dataPoint.x - nr,
@@ -186,6 +191,8 @@ function collide(dataPoint){
             }
         }
         //output the results, so that the x and y values of the new array are bigger than the minimum calculated by the collide function.
-        return x1>nx2 || x2<nx1 || y1>ny2 || y2<ny1;
+        return x1>nx2 || x2<nx1 || y1>ny2 || y2<ny1;  // asks if a collision is happening - checks whether x1>nx2 OR x2<nx1 (etc)
+        //the result of the expression is a boolean; if any of these things is true, it returns true (checks to see if modified).
+
     }
 }
